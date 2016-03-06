@@ -13,8 +13,7 @@ class AuthController extends Controller
     public function login()
     {
         $cookie_user = cookie('user');
-        var_dump($cookie_user);
-        exit;
+
         if(session('?user')){
             $this->redirect('/admin');
         }elseif(isset($cookie_user)){
@@ -36,8 +35,6 @@ class AuthController extends Controller
             }
 
             if(strtoupper($validateCode) !== strtoupper(session('validateCode'))){
-                var_dump($validateCode , session('validateCode'));
-                exit;
                 $this->error('验证码错误!');
             }
 
@@ -49,7 +46,7 @@ class AuthController extends Controller
             ])->where(['username' => $username , 'password' => sha1($password)])->find();
 
             if($remember){
-               cookie('user',$data,3600*24*3);
+               cookie('user',$data,['expire' =>3600*24*3,'prefix' => 'think_' ]);
             }
 
             session('user',$data);
@@ -63,6 +60,7 @@ class AuthController extends Controller
 
     public function logout()
     {
+        cookie('user',null);
         if(session('?user')){
             session('user',null);
             $this->redirect('/admin');

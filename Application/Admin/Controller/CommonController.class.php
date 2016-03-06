@@ -11,6 +11,4 @@ class CommonController extends Controller
             $this->redirect('/admin/auth/login');
         }
     }
-
-
 }
