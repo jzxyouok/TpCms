@@ -15,10 +15,10 @@ class AuthController extends Controller
         $cookie_user = cookie('user');
 
         if(session('?user')){
-            $this->redirect('/admin');
-        }elseif(isset($cookie_user)){
-            session('user' , $cookie_user);
-            $this->redirect('/admin');
+                $this->redirect('/admin');
+            }elseif(isset($cookie_user)){
+                session('user' , $cookie_user);
+                $this->redirect('/admin');
         }
         if(IS_POST){
             $username = trim(I('param.username'));

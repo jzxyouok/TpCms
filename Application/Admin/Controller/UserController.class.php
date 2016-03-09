@@ -30,10 +30,10 @@ class UserController extends CommonController
         $this->assign('pagination',$pagination);
 
         $this->assign('nav',[
-            'title' => '用户列表'
+            'title' => '管理员列表'
         ]);
         $this->assign('breadcrumbs',[
-            '用户列表' => '',
+            '管理员列表' => '',
         ]);
 
         $this->display();
@@ -60,11 +60,11 @@ class UserController extends CommonController
             }
         }else{
             $this->assign('nav',[
-                'title' => '用户创建'
+                'title' => '管理员创建'
             ]);
             $this->assign('breadcrumbs',[
-                '用户列表' => U('/admin/user'),
-                '用户创建' => '',
+                '管理员列表' => U('/admin/user'),
+                '管理员创建' => '',
             ]);
             $this->display('save');
         }
@@ -88,11 +88,11 @@ class UserController extends CommonController
             }
         }else{
             $this->assign('nav',[
-                'title' => '修改用户密码'
+                'title' => '修改管理员密码'
             ]);
             $this->assign('breadcrumbs',[
-                '用户列表' => U('/admin/user'),
-                '修改用户密码' => '',
+                '管理员列表' => U('/admin/user'),
+                '修改管理员密码' => '',
             ]);
             $this->display();
         }
