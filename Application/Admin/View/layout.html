@@ -289,6 +289,46 @@
             });
             return false;
         });
+
+        $('.disable').click(function(){
+            var url = $(this).attr('href');
+
+            bootbox.confirm({
+                title: '<i class="fa fa-volume-down"></i>&nbsp;&nbsp;&nbsp;'+"提示信息",
+                buttons: {
+                    confirm: {
+                        label: '确认',
+                        className: 'btn-info'
+                    },
+                    cancel: {
+                        label: '取消',
+                        className: 'btn-default'
+                    }
+                },
+                message: '确认切换吗？',
+                callback: function(result) {
+                    if(result) {
+                        $.ajax({
+                            type:'get',
+                            url:url,
+                            dataType:'json',
+                            success:function(json){
+                                if(json.state){
+                                    location.reload();
+                                }else{
+                                    console.error(json.message);
+                                }
+                            },
+                            error:function(err){
+                                console.log(err);
+                                throw err;
+                            }
+                        });
+                    }
+                }
+            });
+            return false;
+        });
     });
 </script>
 </body>

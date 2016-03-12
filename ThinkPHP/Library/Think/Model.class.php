@@ -283,17 +283,21 @@ class Model
             } else {
                 $fields = $this->fields;
             }
+
             foreach ($data as $key => $val) {
                 if (!in_array($key, $fields, true)) {
                     if (!empty($this->options['strict'])) {
                         E(L('_DATA_TYPE_INVALID_') . ':[' . $key . '=>' . $val . ']');
                     }
                     unset($data[$key]);
+
                 } elseif (is_scalar($val)) {
                     // 字段类型检查 和 强制转换
                     $this->_parseType($data, $key);
+
                 }
             }
+
         }
 
         // 安全过滤
@@ -301,7 +305,9 @@ class Model
             $data = array_map($this->options['filter'], $data);
             unset($this->options['filter']);
         }
+
         $this->_before_write($data);
+
         return $data;
     }
 
@@ -434,8 +440,10 @@ class Model
                 return false;
             }
         }
+
         // 数据处理
         $data = $this->_facade($data);
+
         if (empty($data)) {
             // 没有数据则不执行
             $this->error = L('_DATA_TYPE_INVALID_');

@@ -937,7 +937,6 @@ function dump($var, $echo = true, $label = null, $strict = true)
     } else {
         return $output;
     }
-
 }
 
 /**

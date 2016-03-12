@@ -34,3 +34,23 @@ function validateCode($width=80,$height=30,$font_size =20)
     imagepng($im);
     imagedestroy($im);
 }
+
+function dd($var = '')
+{
+    $var = func_get_args();
+    foreach($var as $item){
+        dump($item);
+    }
+    exit;
+}
+
+function array_except($array , $unset = [])
+{
+    foreach($array as $k => $v){
+        if(in_array($k,$unset)){
+            unset($array[$k]);
+        }
+    }
+
+    return $array;
+}

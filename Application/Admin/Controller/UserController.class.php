@@ -3,31 +3,48 @@ namespace Admin\Controller;
 
 class UserController extends CommonController
 {
+    /**
+     * 用户列表
+     */
     public function index()
     {
+        $keyword = I('param.keyword','');
+
         $user = D('User');
 
-        $page_size = 4;
+        $where['id']  = array('like', "%$keyword%");
+        $where['username']  = array('like',"%$keyword%");
+        $where['_logic'] = 'or';
+        $map['_complex'] = $where;
+
+        $page_size = 10;
 
         $count = $user->count();
 
         $pagination = new \Think\Page($count,$page_size);
 
-        $data = $user->field([
+        $data = $user->where($map)->field([
             'id',
             'username',
             'email',
             'mobile',
             'avatar',
             'type',
+            'status',
+            'login',
             'last_login_time',
             'last_login_ip',
             'created_at',
         ])->limit($pagination->firstRow , $pagination->listRows)->select();
 
         $this->assign('user',$data);
-
+        //分页跳转的时候保证查询条件
+        foreach($map as $key=>$val) {
+            $pagination->parameter[$key] = urlencode($val);
+        }
         $this->assign('pagination',$pagination);
+
+        $this->assign('keyword',$keyword);
 
         $this->assign('nav',[
             'title' => '管理员列表'
@@ -39,6 +56,9 @@ class UserController extends CommonController
         $this->display();
     }
 
+    /**
+     * 创建用户
+     */
     public function create()
     {
         if(IS_POST && !IS_AJAX){
@@ -71,6 +91,10 @@ class UserController extends CommonController
 
     }
 
+    /**
+     * 更新用户名
+     * @param $id
+     */
     public function update($id)
     {
         if(IS_POST && !IS_AJAX){
@@ -98,12 +122,36 @@ class UserController extends CommonController
         }
     }
 
+    /**
+     * 删除用户
+     * @param $id
+     */
     public function delete($id)
     {
         if(IS_AJAX){
             $this->ajaxReturn([
                 'state' => 1,
                 'message' => '删除成功',
+            ]);
+        }
+    }
+
+    /**
+     * 用户禁用与启用
+     * @param $id
+     */
+    public function disable($id)
+    {
+        $user = D('User');
+
+        $data = $user->find($id);
+
+        $user->status = $data['status'] ? 0 : 1;
+
+        if($user->save()){
+            $this->ajaxReturn([
+                'state' => 1,
+                'message' => '操作成功',
             ]);
         }
     }

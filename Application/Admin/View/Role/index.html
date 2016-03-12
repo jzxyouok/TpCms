@@ -1,0 +1,67 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn btn-app" href="{:U('/admin/role/create')}">
+                <i class="fa fa-edit"></i> 添加角色
+            </a>
+            <div class="box box-info">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table role="grid" class="table table-bordered table-hover dataTable">
+                                    <tbody>
+                                    <tr role="row">
+                                        <th>ID</th>
+                                        <th>角色名称</th>
+                                        <th>描述</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <foreach name="role" item="vo" >
+                                        <tr class="odd" role="row">
+                                            <td>{$vo['id']}</td>
+                                            <td>{$vo['name']}</td>
+                                            <td>{$vo['description']}</td>
+                                            <td>{$vo['created_at']|date="Y-m-d H:i:s",###}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="{:U('/admin/role/update/id/'.$vo['id'])}" class="btn btn-info btn-flat">
+                                                        <i class="fa fa-key"></i>
+                                                    </a>
+                                                    <a href="{:U('/admin/role/delete/id/'.$vo['id'])}" class="btn btn-danger btn-flat delete">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div aria-live="polite" role="status" id="example2_info" class="dataTables_info">
+                                    共{$pagination->totalRows}记录
+                                </div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div id="example2_paginate" class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <?php echo $pagination->show();?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
