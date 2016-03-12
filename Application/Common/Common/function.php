@@ -54,3 +54,15 @@ function array_except($array , $unset = [])
 
     return $array;
 }
+
+function active()
+{
+    $params = func_get_args();
+    $current_action = CONTROLLER_NAME.'_'.ACTION_NAME;
+    $class = '';
+    if(in_array($current_action,$params)){
+        $class = 'active';
+    }
+
+    return $class;
+}
