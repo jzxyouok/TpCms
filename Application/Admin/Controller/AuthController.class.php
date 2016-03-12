@@ -10,7 +10,9 @@ class AuthController extends Controller
      */
     public function validate()
     {
-        return validateCode($width=80,$height=30,$font_size =20);
+        $verify = new \Think\Verify();
+        $verify->fontttf = 'Roboto Mono.ttf';
+        return $verify->entry();
     }
 
     /**
@@ -33,7 +35,7 @@ class AuthController extends Controller
         if(IS_POST){
             $username = trim(I('param.username'));
             $password = trim(I('param.password'));
-            $validateCode = trim(I('param.validateCode'));
+            $verify_code = trim(I('param.verify_code'));
             $remember = (bool)I('param.remember');
             $user = D('User');
             if(!$user->where(['username' => $username])->count()){
@@ -48,7 +50,7 @@ class AuthController extends Controller
                 $this->error('用户已被禁用!');
             }
 
-            if(strtoupper($validateCode) !== strtoupper(session('validateCode'))){
+            if(!check_verify($verify_code)){
                 $this->error('验证码错误!');
             }
             $data = array_except($data , ['password']);

@@ -19,7 +19,7 @@ function validateCode($width=80,$height=30,$font_size =20)
     }
 
     //保存验证码到$_SESSION
-    session('validateCode', $randFourStr);
+    session('verify_code', $randFourStr);
 
     //干扰线
     for ($i=0;$i<8;$i++){
@@ -33,6 +33,12 @@ function validateCode($width=80,$height=30,$font_size =20)
     header ( 'Content-type: image/png' );
     imagepng($im);
     imagedestroy($im);
+}
+
+// 检测输入的验证码是否正确，$code为用户输入的验证码字符串
+function check_verify($code, $id = ''){
+    $verify = new \Think\Verify();
+    return $verify->check($code, $id);
 }
 
 function dd($var = '')
