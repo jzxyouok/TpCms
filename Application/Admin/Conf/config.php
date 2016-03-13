@@ -34,7 +34,7 @@ return array(
     'LOG_LEVEL'              => 'EMERG,ALERT,CRIT,ERR', // 允许记录的日志级别
 
     // 显示页面Trace信息
-    'SHOW_PAGE_TRACE' =>true,
+    'SHOW_PAGE_TRACE' => true,
 
     'TRACE_PAGE_TABS'=>array(
         'base'=>'基本',

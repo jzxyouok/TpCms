@@ -23,6 +23,7 @@ define('APP_DEBUG', true);
 //define('BIND_MODULE','Admin');
 
 // 定义应用目录
+define('PUBLIC_PATH', './Public/');
 define('APP_PATH', './Application/');
 
 // 引入ThinkPHP入口文件

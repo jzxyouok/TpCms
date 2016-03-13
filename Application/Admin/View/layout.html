@@ -78,8 +78,8 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <if condition="session('user')['avatart']">
-                                <img src="{:session('user')['avatart']}" class="user-image" alt="User Image">
+                            <if condition="$online_user['avatar'] neq ''">
+                                <img src="{$online_user['avatar']}" class="user-image" alt="User Image">
                             <else />
                                 <img src="/Public/assets/dist/img/admin.jpg" class="user-image" alt="User Image">
                             </if>
@@ -88,8 +88,8 @@
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <if condition="session('user')['avatart']">
-                                    <img src="{:session('user')['avatart']}" class="img-circle" alt="User Image">
+                                <if condition="$online_user['avatar'] neq ''">
+                                    <img src="{$online_user['avatar']}" class="img-circle" alt="User Image">
                                     <else />
                                     <img src="/Public/assets/dist/img/admin.jpg" class="img-circle" alt="User Image">
                                 </if>
@@ -122,8 +122,8 @@
             <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <if condition="session('user')['avatart']">
-                            <img src="{:session('user')['avatart']}" class="img-circle" alt="User Image">
+                        <if condition="$online_user['avatar'] neq ''">
+                            <img src="{$online_user['avatar']}" class="img-circle" alt="User Image">
                             <else />
                             <img src="/Public/assets/dist/img/admin.jpg" class="img-circle" alt="User Image">
                         </if>
@@ -151,15 +151,13 @@
                                 <a href="#"><i class="fa fa-circle-o"></i> 文章管理 <i class="fa fa-angle-left pull-right"></i></a>
                                 <ul style="display: none;" class="treeview-menu">
                                     <li><a href="{:U('/admin/article')}"><i class="fa fa-circle-o"></i> 文章列表 </a></li>
-                                    <li><a href="{:U('/admin/article/comment')}"><i class="fa fa-circle-o"></i> 文章评论 </a></li>
                                     <li><a href="{:U('/admin/trash')}"><i class="fa fa-circle-o"></i> 回收站 </a></li>
                                 </ul>
                             </li>
                             <li class="">
-                                <a href="#"><i class="fa fa-circle-o"></i> 下载管理 <i class="fa fa-angle-left pull-right"></i></a>
+                                <a href="#"><i class="fa fa-circle-o"></i> 评论管理 <i class="fa fa-angle-left pull-right"></i></a>
                                 <ul style="display: none;" class="treeview-menu">
-                                    <li><a href="{:U('/admin/download')}"><i class="fa fa-circle-o"></i> 下载列表 </a></li>
-                                    <li><a href="{:U('/admin/download/comment')}"><i class="fa fa-circle-o"></i> 下载评论 </a></li>
+                                    <li><a href="{:U('/admin/comment')}"><i class="fa fa-circle-o"></i> 评论列表 </a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -171,7 +169,13 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{:U('/admin/client')}"><i class="fa fa-circle-o"></i> 网站设置 </a></li>
-                            <li><a href="{:U('/admin/client')}"><i class="fa fa-circle-o"></i> 分类管理 </a></li>
+                            <li class="">
+                                <a href="#"><i class="fa fa-circle-o"></i> 分类管理 <i class="fa fa-angle-left pull-right"></i></a>
+                                <ul style="display: none;" class="treeview-menu">
+                                    <li><a href="{:U('/admin/download')}"><i class="fa fa-circle-o"></i> 分类列表 </a></li>
+                                    <li><a href="{:U('/admin/download')}"><i class="fa fa-circle-o"></i> 分类类型 </a></li>
+                                </ul>
+                            </li>
                             <li><a href="{:U('/admin/client')}"><i class="fa fa-circle-o"></i> 配置管理 </a></li>
                             <li><a href="{:U('/admin/client')}"><i class="fa fa-circle-o"></i> 前台导航 </a></li>
                         </ul>
@@ -188,13 +192,13 @@
                         </ul>
                     </li>
 
-                    <li class="treeview">
+                    <li class="treeview {:active('Single_info','Single_password_update')}">
                         <a href="#">
                             <i class="fa fa-user"></i> <span> 个人中心 </span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href=""><i class="fa fa-circle-o"></i> 个人信息 </a></li>
-                            <li><a href=""><i class="fa fa-circle-o"></i> 修改密码 </a></li>
+                            <li class="{:active('Single_info')}"><a href="{:U('/admin/single/info')}"><i class="fa fa-circle-o"></i> 个人信息 </a></li>
+                            <li class="{:active('Single_password_update')}"><a href="{:U('/admin/single/password_update')}"><i class="fa fa-circle-o"></i> 修改密码 </a></li>
                         </ul>
                     </li>
 
@@ -375,6 +379,62 @@
             });
             return false;
         });
+
+        $('#avatar').click(function(){
+            $('#file').click();
+        });
+
+        var file = document.getElementById('file');
+
+        var avatar = '/Public/assets/dist/img/admin.jpg';
+        if(null !== file){
+            file.onchange = function(){
+                var fileReader = new FileReader();
+                if (this.files.length === 0) {
+                    return false;
+                }
+                fileReader.onload = function () {
+                    $.ajax({
+                        type:'post',
+                        url:'/admin/upload/encode',
+                        dataType:'json',
+                        data:{file:this.result.replace(/^data:image\/\w+;base64,/, ""),type:'avatar'},
+                        success:function(json){
+                            if(json.state){
+                                avatar = json.path;
+                                $('.avatart').attr('src',avatar);
+                            }else{
+                                bootbox.alert(json.message);
+                            }
+                        },
+                        error:function(err){
+                            console.log(err);
+                            throw err;
+                        }
+                    });
+                };
+                fileReader.readAsDataURL(this.files[0]);
+            };
+        }
+
+        $('#store_avatar').click(function(){
+            $.ajax({
+                type:'post',
+                url:'/admin/single/store_avatar',
+                dataType:'json',
+                data:{path:avatar},
+                success:function(json){
+                    bootbox.alert(json.message,function(){
+                        location.reload();
+                    });
+                },
+                error:function(err){
+                    console.log(err);
+                    throw err;
+                }
+            });
+        });
+
     });
 </script>
 </body>

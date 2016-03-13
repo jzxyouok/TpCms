@@ -10,5 +10,7 @@ class CommonController extends Controller
         if(null == session('user')){
             $this->redirect('/admin/auth/login');
         }
+        $uid = session('user')['id'];
+        $this->assign('online_user',D('User')->find($uid));
     }
 }

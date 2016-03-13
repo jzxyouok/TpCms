@@ -1,0 +1,207 @@
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <if condition="$single['user']['avatar'] neq ''">
+                        <img class="profile-user-img img-responsive img-circle avatart" src="{$single['user']['avatar']}" alt="个人头像">
+                        <else />
+                        <img class="profile-user-img img-responsive img-circle avatart" src="/Public/assets/dist/img/admin.jpg" alt="个人头像">
+                    </if>
+
+                    <h3 class="profile-username text-center">{:session('user')['username']}</h3>
+
+                    <input class="hide" type="file" id="file" />
+
+                    <p class="text-muted text-center">
+                        <button class="btn btn-primary btn-block" id="avatar">修改头像</button>
+                    </p>
+
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>登录次数</b> <a class="pull-right">{:session('user')['login']}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>上次登录时间</b> <a class="pull-right">{:date("Y-m-d H:i:s",session('user')['last_login_time'])}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>上次登录IP</b> <a class="pull-right">{:long2ip(session('user')['last_login_ip'])}</a>
+                        </li>
+                    </ul>
+
+                    <button id="store_avatar" class="btn btn-primary btn-block"><b>保存头像</b></button>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a aria-expanded="false" href="#activity" data-toggle="tab">我的信息</a></li>
+                    <li class=""><a aria-expanded="true" href="#settings" data-toggle="tab">完善信息</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="activity">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <strong><i class="fa fa-user margin-r-5"></i> 用户名 </strong>
+
+                            <p class="text-muted">
+                                {$single['user']['username']}
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-odnoklassniki margin-r-5"></i> 性别 </strong>
+
+                            <p class="text-muted">
+                                <if condition="$single['gender'] eq 0">
+                                    保密
+                                <elseif condition="$single['gender'] eq 1"/>
+                                    <i class="fa fa-mars margin-r-5"></i>
+                                    男
+                                <else />
+                                    <i class="fa fa-venus margin-r-5"></i>
+                                    女
+                                </if>
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-street-view margin-r-5"></i> 年龄 </strong>
+
+                            <p>
+                                {$single['age']}岁
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-qq margin-r-5"></i> QQ </strong>
+
+                            <p>
+                                {$single['qq']}
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-wechat margin-r-5"></i> 微信 </strong>
+
+                            <p>
+                                {$single['wechat']}
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-envelope margin-r-5"></i> 邮箱 </strong>
+
+                            <p>
+                                {$single['user']['email']}
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-phone margin-r-5"></i> 手机 </strong>
+
+                            <p>
+                                {$single['user']['mobile']}
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-clock-o margin-r-5"></i> 创建时间 </strong>
+
+                            <p>
+                                {:date('Y-m-d H:i:s',$single['user']['created_at'])}
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-volume-up margin-r-5"></i> 个人说明 </strong>
+
+                            <p>
+                                {$single['note']}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+
+                    <div class="tab-pane" id="settings">
+                        <form class="form-horizontal" action="" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">真实姓名</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="real_name" type="text" value="{$single['real_name']}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">性别</label>
+                                <div class="col-sm-10">
+                                    <div class="radio">
+                                        <label>
+                                            <input name="gender" value="0" {$single['gender'] != 0 ? : 'checked'} type="radio">保密
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input name="gender" value="1"{$single['gender'] != 1 ? : 'checked'} type="radio">男
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input name="gender" value="2"{$single['gender'] != 2 ? : 'checked'} type="radio">女
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">年龄</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="age" type="text" value="{$single['age']}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">QQ</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="qq" type="text" value="{$single['qq']}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">微信</label>
+
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="wechat" type="text" value="{$single['wechat']}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">个人说明</label>
+
+                                <div class="col-sm-10">
+                                    <textarea style="resize: vertical" class="form-control" name="note">{$single['note']}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-info">保存信息</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+</section>

@@ -72,7 +72,6 @@ class UserController extends CommonController
             $user = D('User');
 
             $data = $user->create($data);
-
             if($data && $user->add($data)){
                 $this->success('操作完成','/admin/user',3);
             }else{
@@ -88,7 +87,6 @@ class UserController extends CommonController
             ]);
             $this->display('save');
         }
-
     }
 
     /**
@@ -98,6 +96,8 @@ class UserController extends CommonController
     public function update($id)
     {
         if(IS_POST && !IS_AJAX){
+            $data['email'] = I('param.email');
+            $data['mobile'] = I('param.mobile');
             $data['password'] = I('param.password');
             $data['confirm_password'] = I('param.confirm_password');
 
@@ -111,12 +111,14 @@ class UserController extends CommonController
                 $this->error('操作失败'.$user->getError());
             }
         }else{
+            $user = D('User')->find($id);
+            $this->assign('user',$user);
             $this->assign('nav',[
-                'title' => '修改管理员密码'
+                'title' => '修改管理员'
             ]);
             $this->assign('breadcrumbs',[
                 '管理员列表' => U('/admin/user'),
-                '修改管理员密码' => '',
+                '修改管理员' => '',
             ]);
             $this->display();
         }

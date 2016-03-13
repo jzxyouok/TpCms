@@ -59,8 +59,6 @@ class AuthController extends Controller
                cookie('user',$data,['expire' =>3600*24*3,'prefix' => 'think_' ]);
             }
 
-            session('user',$data);
-
             $touch = [
                 'login' => (int)++$data['login'],
                 'last_login_time' => (int)time(),
@@ -68,6 +66,8 @@ class AuthController extends Controller
             ];
 
             M('User')->where(['id' => $data['id']])->save($touch);
+
+            session('user',$data);
 
             $this->redirect('/admin');
         }else{
