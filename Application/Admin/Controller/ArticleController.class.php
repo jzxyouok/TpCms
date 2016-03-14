@@ -5,12 +5,25 @@ class ArticleController extends CommonController
 {
     public function index()
     {
-        echo __METHOD__;
+        $this->assign('nav',[
+            'title' => '文章列表'
+        ]);
+        $this->assign('breadcrumbs',[
+            '文章列表' => '',
+        ]);
+        $this->display();
     }
 
     public function create()
     {
-        echo __METHOD__;
+        $this->assign('nav',[
+            'title' => '文章发布'
+        ]);
+        $this->assign('breadcrumbs',[
+            '文章列表' => U('/admin/article'),
+            '文章发布' => '',
+        ]);
+        $this->display('save');
     }
 
     public function update()

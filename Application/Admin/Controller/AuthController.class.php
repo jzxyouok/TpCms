@@ -5,6 +5,9 @@ use Think\Controller;
 
 class AuthController extends Controller
 {
+    const LOGIN_COUNT = 3;              //最大登陆次数
+    const LOGIN_CACHE_TIME = 300;       //登陆次数达到最大登陆次数后登陆等待时间 , 单位 s (秒)
+
     /**
      * 生成验证码
      */
@@ -43,7 +46,24 @@ class AuthController extends Controller
             }
 
             if(!$data = $user->where(['username' => $username , 'password' => sha1($password)])->find()){
-                $this->error('用户名或密码错误!');
+                // 设置登陆出错缓存
+                $client_ip = ip2long(get_client_ip());
+
+                if(!$value = S('password_error'.$client_ip)){
+                    $value = 1;
+                }else{
+                    $value+= 1;
+                }
+
+                if(3 <= $value){
+                    $this->error('密码错误达到'.self::LOGIN_COUNT.'次，请'.(self::LOGIN_CACHE_TIME / 60).'分钟后稍后再试!');
+                }
+
+                S('password_error'.$client_ip , $value , self::LOGIN_CACHE_TIME);
+
+                $count = self::LOGIN_COUNT - $value;
+
+                $this->error("用户名或密码错误! 还有 $count 次机会");
             }
 
             if($data['status'] != 1){
