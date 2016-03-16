@@ -5,12 +5,12 @@ class UserModel extends Model {
 
     protected $_validate = [
         ['username','require','用户名必填'],
-        ['username','','用户名已经存在',0,'unique',2],
+        ['username','','用户名已经存在',0,'unique',3],
         ['email','require','邮箱必填'],
-        ['email','','邮箱已经存在',0,'unique',2],
+        ['email','','邮箱已经存在',0,'unique',3],
         ['email','email','请使用邮箱格式'],
         ['mobile','require','手机号必填'],
-        ['mobile','','手机号已经存在',0,'unique',2],
+        ['mobile','','手机号已经存在',0,'unique',3],
         ['mobile','/^1[3|5|8][0-9]{1}[0-9]{8}$|15[0189]{1}[0-9]{8}$|189[0-9]{8}$/','手机号码格式不对',0,'regex'],
         ['password','require','密码必填'],
         ['password','8,12','密码长度必须8-12字符',0,'length'],
@@ -19,8 +19,8 @@ class UserModel extends Model {
 
     protected $_auto = [
         ['password','autoPassword',3,'callback'],
-        ['created_at','time',1,'function'],
-        ['updated_at','time',2,'function'],
+        ['created_at','time',2,'function'],
+        ['updated_at','time',1,'function'],
     ];
 
     protected function autoPassword($password)

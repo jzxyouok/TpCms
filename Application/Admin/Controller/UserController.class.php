@@ -73,7 +73,7 @@ class UserController extends CommonController
 
             $data = $user->create($data);
             if($data && $user->add($data)){
-                $this->success('操作完成','/admin/user',3);
+                $this->success('操作完成','/admin/user',1);
             }else{
                 $this->error('操作失败'.$user->getError());
             }

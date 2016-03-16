@@ -163,19 +163,13 @@
                         </ul>
                     </li>
 
-                    <li class="treeview">
+                    <li class="treeview {:active('Catemodel_index','Catemodel_create','Catemodel_update','Category_index','Category_create','Category_update')}">
                         <a href="#">
                             <i class="fa fa-cogs"></i> <span>系统设置</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{:U('/admin/client')}"><i class="fa fa-circle-o"></i> 网站设置 </a></li>
-                            <li class="">
-                                <a href="#"><i class="fa fa-circle-o"></i> 分类管理 <i class="fa fa-angle-left pull-right"></i></a>
-                                <ul style="display: none;" class="treeview-menu">
-                                    <li><a href="{:U('/admin/download')}"><i class="fa fa-circle-o"></i> 分类列表 </a></li>
-                                    <li><a href="{:U('/admin/download')}"><i class="fa fa-circle-o"></i> 分类类型 </a></li>
-                                </ul>
-                            </li>
+                            <li class="{:active('Category_index','Category_create','Category_update')}"><a href="{:U('/admin/category')}"><i class="fa fa-circle-o"></i> 分类管理 </a></li>
                             <li><a href="{:U('/admin/client')}"><i class="fa fa-circle-o"></i> 配置管理 </a></li>
                             <li><a href="{:U('/admin/client')}"><i class="fa fa-circle-o"></i> 前台导航 </a></li>
                         </ul>

@@ -1,11 +1,10 @@
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-            <a class="btn btn-app" href="{:U('/admin/role/create')}">
-                <i class="fa fa-edit"></i> 添加角色
+            <a class="btn btn-app" href="{:U('/admin/category/create')}">
+                <i class="fa fa-edit"></i> 创建分类
             </a>
             <div class="box box-info">
-                <!-- /.box-header -->
                 <div class="box-body">
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
@@ -14,25 +13,25 @@
                                     <tbody>
                                     <tr role="row">
                                         <th>ID</th>
-                                        <th>角色名称</th>
-                                        <th>描述</th>
+                                        <th>分类名称</th>
+                                        <th>所属分类</th>
+                                        <th>层级</th>
                                         <th>创建时间</th>
-                                        <th>更新时间</th>
                                         <th>操作</th>
                                     </tr>
-                                    <foreach name="role" item="vo" >
+                                    <foreach name="category" item="vo" >
                                         <tr class="odd" role="row">
                                             <td>{$vo['id']}</td>
                                             <td>{$vo['name']}</td>
-                                            <td>{$vo['description']}</td>
+                                            <td>{$vo['parent'] ? $vo['parent']['name'] : '顶级分类'}</td>
+                                            <td>{$vo['level']}级</td>
                                             <td>{$vo['created_at']|date="Y-m-d H:i:s",###}</td>
-                                            <td>{$vo['updated_at']|date="Y-m-d H:i:s",###}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="{:U('/admin/role/update/id/'.$vo['id'])}" class="btn btn-info btn-flat">
+                                                    <a href="{:U('/admin/category/update/id/'.$vo['id'])}" class="btn btn-info btn-flat">
                                                         <i class="fa fa-key"></i>
                                                     </a>
-                                                    <a href="{:U('/admin/role/delete/id/'.$vo['id'])}" class="btn btn-danger btn-flat delete">
+                                                    <a href="{:U('/admin/category/delete/id/'.$vo['id'])}" class="btn btn-danger btn-flat delete">
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                     </a>
                                                 </div>
@@ -43,6 +42,7 @@
                                 </table>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-sm-5">
                                 <div aria-live="polite" role="status" id="example2_info" class="dataTables_info">
