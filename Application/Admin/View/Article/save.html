@@ -33,7 +33,7 @@
 
                         <div class="form-group">
                             <label>内容</label>
-                            <textarea class="form-control" name="content" required></textarea>
+                            <textarea style="width:100%;height: 300px" class="form-control" id="editor_1" name="content"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -45,7 +45,7 @@
                             <label>可见性</label>
                             <div class="radio">
                                 <label>
-                                    <input name="visible" value="1" checked="" type="radio">
+                                    <input name="visible" value="1" checked type="radio">
                                     可见
                                 </label>
                             </div>
@@ -59,7 +59,12 @@
 
                         <div class="form-group">
                             <label>到期时间</label>
-                            <input class="form-control" type="text" name="due_at">
+                            <div class="input-group">
+                                <input class="form-control datepicker" type="text" name="due_at" required>
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
