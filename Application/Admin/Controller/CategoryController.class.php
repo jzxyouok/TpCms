@@ -81,6 +81,10 @@ class CategoryController extends CommonController
 
             $category = D('Category');
 
+            if($category->where("id!=$id and name='{$data['name']}'")->count()){
+                $this->error('该分类已经存在');
+            }
+
             $data = $category->create($data);
 
             if($data && $category->where(['id' => $id])->save($data)){

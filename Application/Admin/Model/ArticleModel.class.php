@@ -1,12 +1,26 @@
 <?php
 namespace Admin\Model;
-use Think\Model;
-class ArticleModel extends Model {
+use Think\Model\RelationModel;
+class ArticleModel extends RelationModel {
+    protected $_link = [
+        'category'=>[
+            'mapping_type'      => self::BELONGS_TO,
+            'class_name'        => 'Category',
+            'mapping_name'      => 'category',
+            'foreign_key'       => 'category_id',
+        ],
+        'author'=>[
+            'mapping_type'      => self::BELONGS_TO,
+            'class_name'        => 'User',
+            'mapping_name'      => 'author',
+            'foreign_key'       => 'user_id',
+        ],
+    ];
 
     // 自动验证
     protected $_validate = [
         ['title','require','文章标题必填'],
-        ['title','','文章标题已经存在',0,'unique',3],
+        ['title','','文章标题已经存在',0,'unique',2],
         ['content','require','文章内容必填'],
         ['content','200,30000','文章内容必须200-30000字内',0,'length'],
         ['description','require','文章描述必填'],

@@ -53,6 +53,8 @@ class CategoryModel extends RelationModel {
         if($parent_id){
             $parent = $this->find($parent_id);
             $data['level'] = ++$parent['level'];
+        }else{
+            $data['level'] = 1;
         }
     }
     // 更新成功后的回调方法

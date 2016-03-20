@@ -15,7 +15,7 @@
                                 <else />
                                 <select class="form-control" name="category_id" required>
                                     <foreach name="category" item="vo" >
-                                        <option value="{$vo['id']}" {$vo['id'] == $current['parent_id'] ? 'selected' : ''}>
+                                        <option value="{$vo['id']}" {$vo['id'] == $current['category_id'] ? 'selected' : ''}>
                                         <for start="1" end="$vo['level']">
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                         </for>
@@ -28,30 +28,30 @@
 
                         <div class="form-group">
                             <label>文章标题</label>
-                            <input class="form-control" type="text" name="title" required>
+                            <input class="form-control" type="text" name="title" value="{$current['title'] ? $current['title'] : ''}" required>
                         </div>
 
                         <div class="form-group">
                             <label>内容</label>
-                            <textarea style="width:100%;height: 300px" class="form-control" id="editor_1" name="content"></textarea>
+                            <textarea style="width:100%;height: 300px" class="form-control" id="editor_1" name="content">{$current['content'] ? $current['content'] : ''}</textarea>
                         </div>
 
                         <div class="form-group">
                             <label>描述</label>
-                            <textarea class="form-control" name="description" required></textarea>
+                            <textarea class="form-control" name="description" required>{$current['description'] ? $current['description'] : ''}</textarea>
                         </div>
 
                         <div class="form-group">
                             <label>可见性</label>
                             <div class="radio">
                                 <label>
-                                    <input name="visible" value="1" checked type="radio">
+                                    <input name="visible" value="1" {$current['visible'] ? 'checked' : ''} type="radio">
                                     可见
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input name="visible" value="0" type="radio">
+                                    <input name="visible" value="0" {!$current['visible'] ? 'checked' : ''} type="radio">
                                     不可见
                                 </label>
                             </div>
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label>到期时间</label>
                             <div class="input-group">
-                                <input class="form-control datepicker" type="text" name="due_at" required>
+                                <input class="form-control datepicker" type="text" name="due_at" value="{$current['due_at'] ? $current['due_at']|date="Y-m-d",### : ''}" required>
                                 <div class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </div>
@@ -69,12 +69,12 @@
 
                         <div class="form-group">
                             <label>优先级</label>
-                            <input class="form-control" type="text" name="priority">
+                            <input class="form-control" type="text" name="priority" value="{$current['priority'] ? $current['priority'] : ''}">
                         </div>
 
                         <div class="form-group">
                             <label>浏览量</label>
-                            <input class="form-control" type="text" name="browse">
+                            <input class="form-control" type="text" name="browse" value="{$current['browse'] ? $current['browse'] : ''}">
                         </div>
                     </div>
                     <!-- /.box-body -->
