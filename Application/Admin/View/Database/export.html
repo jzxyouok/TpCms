@@ -1,0 +1,60 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-app" id="export">
+                <i class="fa fa-mail-forward"></i> 立即备份
+            </button>
+            <div class="box box-info">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <form id="export-form" method="post" action="{:U('/admin/database/export')}">
+                            <div class="col-sm-12">
+                                <label>(温馨提示：数据备份时请不要刷新页面)</label>
+                                <table role="grid" class="table table-bordered table-hover dataTable">
+                                    <tbody>
+                                    <tr role="row">
+                                        <th class="hide"><input class="check-all" checked="chedked" type="checkbox" value=""></th>
+                                        <th>表名</th>
+                                        <th>数据量</th>
+                                        <th>创建时间</th>
+                                        <th>备份状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <foreach name="list" item="vo" >
+                                        <tr class="odd" role="row">
+                                            <td class="hide"><input class="ids" checked="chedked" type="checkbox" name="tables[]" value="{$vo['name']}"></td>
+                                            <td>{$vo['name']}</td>
+                                            <td>{$vo['rows']}</td>
+                                            <td>{$vo['create_time']}</td>
+                                            <td class="status">
+                                                <span class="badge bg-warning">未备份</span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="{:U('/admin/database/optimize/tables/'.$vo['name'])}" class="btn btn-info btn-flat optimize">
+                                                        <i class="fa fa-spinner"></i>
+                                                    </a>
+                                                    <a href="{:U('/admin/database/repair/tables/'.$vo['name'])}" class="btn btn-info btn-flat optimize">
+                                                        <i class="fa fa-wrench"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>

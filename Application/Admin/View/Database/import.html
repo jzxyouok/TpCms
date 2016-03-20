@@ -1,0 +1,54 @@
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table role="grid" class="table table-bordered table-hover dataTable">
+                                    <tbody>
+                                    <tr role="row">
+                                        <th>备份名称</th>
+                                        <th>卷数</th>
+                                        <th>压缩</th>
+                                        <th>备份时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <foreach name="list" item="vo" >
+                                        <tr class="odd" role="row">
+                                            <td>{$vo['time']|date='Ymd-His',###}</td>
+                                            <td>{$vo['part']}</td>
+                                            <td>{$vo['compress']}</td>
+                                            <td>{$key}</td>
+                                            <td class="status">
+                                                <span class="badge bg-warning">待还原</span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="" class="btn btn-info btn-flat optimize">
+                                                        <i class="fa fa-reply"></i>
+                                                    </a>
+                                                    <a href="" class="btn btn-danger btn-flat optimize">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>

@@ -52,6 +52,12 @@ return array(
     'DATA_CACHE_TYPE'        => 'File', // 数据缓存类型,支持:File|Db|Apc|Memcache|Shmop|Sqlite|Xcache|Apachenote|Eaccelerator
     'DATA_CACHE_KEY'         => 'cache', // 缓存文件KEY (仅对File方式缓存有效)
 
+    /* 数据备份设置 */
+    'DATA_BACKUP_PATH'            => 'Data',
+    'DATA_BACKUP_PART_SIZE'       => 20971520,
+    'DATA_BACKUP_COMPRESS'        => 1,
+    'DATA_BACKUP_COMPRESS_LEVEL'  => 9,
+
     // 布局设置
     'TMPL_CACHE_ON'          => false, // 是否开启模板编译缓存,设为false则每次都会重新编译
     'TMPL_CACHE_PREFIX'      => '', // 模板缓存前缀标识，可以动态改变
