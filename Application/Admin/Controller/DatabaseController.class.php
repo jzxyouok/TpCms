@@ -137,7 +137,7 @@ class DatabaseController extends CommonController{
      * 删除备份文件
      * @param int $time
      */
-    public function del($time = 0){
+    public function delete($time = 0){
         if($time){
             $name  = date('Ymd-His', $time) . '-*.sql*';
             $path  = realpath(C('DATA_BACKUP_PATH')) . DIRECTORY_SEPARATOR . $name;
@@ -250,9 +250,9 @@ class DatabaseController extends CommonController{
             $last = end($list);
             if(count($list) === $last[0]){
                 session('backup_list', $list);
-                $this->success('初始化完成！', '', array('part' => 1, 'start' => 0));
+                $this->success('初始化完成', '', array('part' => 1, 'start' => 0));
             } else {
-                $this->error('备份文件可能已经损坏，请检查！');
+                $this->error('备份文件可能已经损坏，请检查');
             }
         } elseif(is_numeric($part) && is_numeric($start)) {
             $list  = session('backup_list');
@@ -263,14 +263,14 @@ class DatabaseController extends CommonController{
             $start = $db->import($start);
 
             if(false === $start){
-                $this->error('还原数据出错！');
+                $this->error('还原数据出错');
             } elseif(0 === $start) {
                 if(isset($list[++$part])){
                     $data = array('part' => $part, 'start' => 0);
                     $this->success("正在还原...#{$part}", '', $data);
                 } else {
                     session('backup_list', null);
-                    $this->success('还原完成！');
+                    $this->success('还原完成');
                 }
             } else {
                 $data = array('part' => $part, 'start' => $start[0]);

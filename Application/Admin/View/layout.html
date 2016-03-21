@@ -346,6 +346,42 @@
             _form.find("input[value=" + tables[id] + "]").closest("tr").find(".status").html(msg);
         }
 
+        $('.import').click(function(){
+            var self = this, status = '.';
+            $.ajax({
+                url:self.href,
+                type:'get',
+                dataType:'json',
+                success:success
+            });
+
+            function success(data){
+                if(data.status){
+                    if(data.gz){
+                        data.info += status;
+                        if(status.length === 5){
+                            status = ".";
+                        } else {
+                            status += ".";
+                        }
+                    }
+                    $(self).parents('td').siblings('td.status').html('<span class="badge bg-light-blue">'+data.info+'</span>');
+                    if(data.part){
+                        $.ajax({
+                            url:self.href,
+                            type:'get',
+                            dataType:'json',
+                            data:{"part" : data.part, "start" : data.start},
+                            success:success
+                        });
+                    }
+                } else {
+                    bootbox.alert(data.info);
+                }
+            }
+            return false;
+        });
+
         $.fn.datepicker.dates['cn'] = {
             days: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
             daysShort: ["日", "一", "二", "三", "四", "五", "六", "七"],
@@ -389,6 +425,46 @@
             });
             $('.pagination').html(html);
         }
+
+        $('.delete_backup').click(function(){
+            var url = $(this).attr('href');
+
+            bootbox.confirm({
+                title: '<i class="fa fa-volume-down"></i>&nbsp;&nbsp;&nbsp;'+"提示信息",
+                buttons: {
+                    confirm: {
+                        label: '确认',
+                        className: 'btn-info'
+                    },
+                    cancel: {
+                        label: '取消',
+                        className: 'btn-default'
+                    }
+                },
+                message: '确认删除吗？',
+                callback: function(result) {
+                    if(result) {
+                        $.ajax({
+                            type:'get',
+                            url:url,
+                            dataType:'json',
+                            success:function(json){
+                                if(json.status){
+                                    location.reload();
+                                }else{
+                                    console.error(json.info);
+                                }
+                            },
+                            error:function(err){
+                                console.log(err);
+                                throw err;
+                            }
+                        });
+                    }
+                }
+            });
+            return false;
+        });
 
         $('.delete').click(function(){
             var url = $(this).attr('href');

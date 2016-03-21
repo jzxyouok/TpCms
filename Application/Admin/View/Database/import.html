@@ -7,6 +7,7 @@
                     <div class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row">
                             <div class="col-sm-12">
+                                <label>(温馨提示：数据还原时请不要刷新页面)</label>
                                 <table role="grid" class="table table-bordered table-hover dataTable">
                                     <tbody>
                                     <tr role="row">
@@ -28,10 +29,10 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="" class="btn btn-info btn-flat optimize">
+                                                    <a href="{:U('/admin/database/import/time/'.$vo['time'])}" class="btn btn-info btn-flat import">
                                                         <i class="fa fa-reply"></i>
                                                     </a>
-                                                    <a href="" class="btn btn-danger btn-flat optimize">
+                                                    <a href="{:U('/admin/database/delete/time/'.$vo['time'])}" class="btn btn-danger btn-flat delete_backup">
                                                         <i class="glyphicon glyphicon-trash"></i>
                                                     </a>
                                                 </div>
