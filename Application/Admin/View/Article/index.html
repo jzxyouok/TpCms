@@ -41,7 +41,7 @@
                                         <tr class="odd" role="row">
                                             <td>{$vo['id']}</td>
                                             <td>{$vo['category']['name']}</td>
-                                            <td>{$vo['title']}</td>
+                                            <td>{:substr($vo['title'],0,30)}...</td>
                                             <td>{$vo['author']['username']}</td>
                                             <if condition="$vo['visible'] eq '1'">
                                                 <td><span class="badge bg-green">可见</span></td>
@@ -59,7 +59,7 @@
                                             <td>
                                                 <div class="btn-group">
                                                     <a href="{:U('/admin/article/update/id/'.$vo['id'])}" class="btn btn-info btn-flat">
-                                                        <i class="fa fa-key"></i>
+                                                        <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a href="{:U('/admin/article/delete/id/'.$vo['id'])}" class="btn btn-danger btn-flat delete">
                                                         <i class="glyphicon glyphicon-trash"></i>

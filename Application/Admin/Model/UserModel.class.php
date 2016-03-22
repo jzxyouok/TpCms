@@ -19,8 +19,8 @@ class UserModel extends Model {
 
     protected $_auto = [
         ['password','autoPassword',3,'callback'],
-        ['created_at','time',2,'function'],
-        ['updated_at','time',1,'function'],
+        ['created_at','time',1,'function'],
+        ['updated_at','time',2,'function'],
     ];
 
     protected function autoPassword($password)
@@ -40,10 +40,9 @@ class UserModel extends Model {
     // 插入成功后的回调方法
     protected function _after_insert($data, $options)
     {
-        $uid = $data['id'];
         $detail = D('UserDetail');
         $detail_data = [
-            'user_id' => $uid,
+            'user_id' => $data['id'],
         ];
         $detail_data = $detail->create($detail_data);
         if($detail_data && $detail->add($detail_data)){

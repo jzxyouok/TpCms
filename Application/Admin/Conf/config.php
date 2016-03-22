@@ -1,5 +1,11 @@
 <?php
 return array(
+    //超级管理员配置
+    'ADMINISTRATOR_NAME'      => 'admin',
+    'ADMINISTRATOR_EMAIL'     => 'admin@qq.com',
+    'ADMINISTRATOR_MOBILE'    => '18188888888',
+    'ADMINISTRATOR_PASSWORD'  => 'admin123',
+
     /* URL设置 */
     'URL_CASE_INSENSITIVE'   => true, // 默true 表示URL不区分大小写 false则表示区分大小写
     'URL_MODEL'              => 2, // URL访问模式,可选参数0、1、2、3,代表以下四种模式：

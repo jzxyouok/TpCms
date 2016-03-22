@@ -30,7 +30,6 @@
                                         <th>手机</th>
                                         <th>用户状态</th>
                                         <th>用户类型</th>
-                                        <th>登录次数</th>
                                         <th>最后登录时间</th>
                                         <th>创建时间</th>
                                         <th>操作</th>
@@ -51,9 +50,8 @@
                                             <else />
                                                 <td>用户</td>
                                             </if>
-                                            <td>{$vo['login']}</td>
                                             <td>{$vo['last_login_time']|date="Y-m-d H:i:s",###}</td>
-                                            <td>{$vo['created_at']|date="Y-m-d H:i:s",###}</td>
+                                            <td>{$vo['created_at']|date="Y-m-d",###}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a href="{:U('/admin/user/update/id/'.$vo['id'])}" class="btn btn-info btn-flat">

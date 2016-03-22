@@ -91,8 +91,30 @@ class AuthController extends Controller
 
             $this->redirect('/admin');
         }else{
+            if(!D('User')->count()){
+                $this->initAdministrator();
+            }
             C('LAYOUT_ON',false);
             $this->display();
+        }
+    }
+
+    private function initAdministrator()
+    {
+        $user = D('User');
+        if(!C('ADMINISTRATOR_NAME') || !C('ADMINISTRATOR_EMAIL') || !C('ADMINISTRATOR_MOBILE') || !C('ADMINISTRATOR_PASSWORD')){
+            $this->redirect('/');
+        }else{
+            $administrator = [
+                'username' => C('ADMINISTRATOR_NAME'),
+                'email'    => C('ADMINISTRATOR_EMAIL'),
+                'mobile'   => C('ADMINISTRATOR_MOBILE'),
+                'password' => C('ADMINISTRATOR_PASSWORD'),
+                'type'     => 1,
+            ];
+
+            $data = $user->create($administrator);
+            $user->add($data);
         }
     }
 

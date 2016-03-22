@@ -43,7 +43,7 @@ class SingleController extends CommonController
     }
 
     /**
-     * 修改用户密码
+     * 修改个人密码
      */
     public function password_update()
     {
@@ -82,6 +82,9 @@ class SingleController extends CommonController
         }
     }
 
+    /**
+     * 更新个人头像
+     */
     public function store_avatar()
     {
         $path = I('post.path');

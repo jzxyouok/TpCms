@@ -99,7 +99,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">个人信息</a>
+                                    <a href="{:U('/admin/single/info')}" class="btn btn-default btn-flat">个人信息</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{:U('/admin/auth/logout')}" class="btn btn-default btn-flat">退出登录</a>
@@ -125,9 +125,9 @@
                 <div class="user-panel">
                     <div class="pull-left image">
                         <if condition="$online_user['avatar'] neq ''">
-                            <img src="{$online_user['avatar']}" class="img-circle" alt="User Image">
+                            <img src="{$online_user['avatar']}" class="img-circle">
                             <else />
-                            <img src="/Public/assets/dist/img/admin.jpg" class="img-circle" alt="User Image">
+                            <img src="/Public/assets/dist/img/admin.jpg" class="img-circle">
                         </if>
                     </div>
                     <div class="pull-left info">
