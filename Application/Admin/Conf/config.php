@@ -53,10 +53,10 @@ return array(
     'DATA_CACHE_KEY'         => 'cache', // 缓存文件KEY (仅对File方式缓存有效)
 
     /* 数据备份设置 */
-    'DATA_BACKUP_PATH'            => 'Data',
-    'DATA_BACKUP_PART_SIZE'       => 20971520,
-    'DATA_BACKUP_COMPRESS'        => 1,
-    'DATA_BACKUP_COMPRESS_LEVEL'  => 9,
+    'DATA_BACKUP_PATH'            => 'Data',       //数据库备份根路径
+    'DATA_BACKUP_PART_SIZE'       => 20971520,     //数据库备份卷大小,单位B
+    'DATA_BACKUP_COMPRESS'        => 1,            //数据库备份文件是否启用压缩
+    'DATA_BACKUP_COMPRESS_LEVEL'  => 9,            //数据库备份文件压缩级别
 
     // 布局设置
     'TMPL_CACHE_ON'          => false, // 是否开启模板编译缓存,设为false则每次都会重新编译

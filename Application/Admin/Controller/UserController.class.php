@@ -157,4 +157,9 @@ class UserController extends CommonController
             ]);
         }
     }
+
+    public function allot($id)
+    {
+        echo __METHOD__;exit;
+    }
 }
